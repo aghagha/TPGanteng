@@ -39,7 +39,7 @@ public class LevelDesign : MonoBehaviour {
     void Spawn(GameObject theEnemy)
     {
         GameObject enemy;
-        float horizontalPos = Random.Range(0, 1);
+        float horizontalPos = Random.Range(0, 2);
         if(horizontalPos == 0)
         {
             horizontalPos = -1 * Random.Range(3.02f, 7.8f);

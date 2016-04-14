@@ -25,7 +25,7 @@ public class Controller : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && (Time.realtimeSinceStartup - lastShoot) > coolDown)
+        if(Input.GetKeyDown(KeyCode.Space) )
             Shoot();
     }
 
@@ -90,13 +90,16 @@ public class Controller : MonoBehaviour {
 
     public void Shoot()
     {
-        GameObject bullet;
-        BulletScript bulletScript;
-        lastShoot = Time.realtimeSinceStartup;
-        
-        bullet = (GameObject)Instantiate(bulletPrefab, laserStart.transform.position, Quaternion.identity);
-        bulletScript = bullet.GetComponent<BulletScript>();
-        bulletScript.SetFinalPos(laserPoint.transform.position);
+		if ((Time.realtimeSinceStartup - lastShoot) > coolDown) 
+		{
+			GameObject bullet;
+			BulletScript bulletScript;
+			lastShoot = Time.realtimeSinceStartup;
+
+			bullet = (GameObject)Instantiate(bulletPrefab, laserStart.transform.position, Quaternion.identity);
+			bulletScript = bullet.GetComponent<BulletScript>();
+			bulletScript.SetFinalPos(laserPoint.transform.position);	
+		}
     }
 
 }
