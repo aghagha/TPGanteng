@@ -36,13 +36,13 @@ public class Controller : MonoBehaviour {
 
     void LaserMovement()
     {
-        if (Input.GetKey(KeyCode.A) || rotLeft)
+		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)|| rotLeft)
         //if(rotLeft)
         {
             if (rot.z < 180)
                 laser.transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.D) || rotRight)
+		else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || rotRight)
         //else if (rotRight)
         {
             if (rot.z < 181 && rot.z > 0)
