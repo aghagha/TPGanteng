@@ -18,6 +18,7 @@ public class LevelDesign : MonoBehaviour {
         enemyPrefab = (GameObject)Resources.Load("Prefab/Enemy");
         enemy2Prefab = (GameObject)Resources.Load("Prefab/Enemy2");
         Physics2D.IgnoreLayerCollision(8, 8);
+        setScoreText(0);
 	}
 	
 	// Update is called once per frame
@@ -66,13 +67,12 @@ public class LevelDesign : MonoBehaviour {
 
     void setScoreText(float score)
     {
-        scoreText.text = score.ToString();
+        scoreText.text = "Score : " + score.ToString();
     }
 
     public void GameOver()
     {
         Time.timeScale = 0;
-        scoreText.color = Color.yellow;
         anim.SetBool("isOver", true);
         loseBgAnim.SetBool("isOver", true);
     }
