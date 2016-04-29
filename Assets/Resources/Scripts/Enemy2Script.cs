@@ -3,15 +3,17 @@ using System.Collections;
 
 public class Enemy2Script : MonoBehaviour
 {
-    Vector2 finalPos;
+    Vector2 finalPos, velo;
     GameObject target, camera;
     LevelDesign levelDesign;
     Rigidbody2D rb;
-    bool isGrounded = false;
 
+    bool isGrounded = false;
     float speed = 1f;
     float knockback = 30f;
     float hp = 2f;
+
+    public float maxVelocity, currVelo;
     
     // Use this for initialization
     void Start()
@@ -25,12 +27,13 @@ public class Enemy2Script : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isGrounded && Time.timeScale != 0)
         {
             rb.gravityScale = 0;
             rb.AddForce((target.transform.position - transform.position).normalized * speed * Time.deltaTime, ForceMode2D.Impulse);
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
         }
     }
 

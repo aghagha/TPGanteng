@@ -6,7 +6,7 @@ using System.Collections;
 public class LevelDesign : MonoBehaviour {
     public float coolDown, coolDown2;
     public Text scoreText, loseWord;
-    public Animator anim, loseBgAnim;
+    public Animator anim;
     
     float lastSpawn, lastSpawn2;
     float score = 0;
@@ -74,7 +74,6 @@ public class LevelDesign : MonoBehaviour {
     {
         Time.timeScale = 0;
         anim.SetBool("isOver", true);
-        loseBgAnim.SetBool("isOver", true);
     }
 
     public void Retry()
