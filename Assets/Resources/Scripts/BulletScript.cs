@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class BulletScript : MonoBehaviour {
+    Rigidbody2D rb;
     Vector2 finalPos;
     Vector3 pos;
     bool posSet = false;
@@ -10,9 +11,9 @@ public class BulletScript : MonoBehaviour {
     void Start () {
         pos = transform.position;
         pos.z = -2.32f;
-	}
+        rb = GetComponent<Rigidbody2D>();
+    }
 	
-	// Update is called once per frame
 	void Update () {
         if (posSet)
         {
@@ -24,7 +25,8 @@ public class BulletScript : MonoBehaviour {
             Destroy(gameObject);
         }
 
-	}
+        
+    }
 
     public void SetFinalPos(Vector2 pos)
     {

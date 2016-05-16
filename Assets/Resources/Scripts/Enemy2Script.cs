@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy2Script : MonoBehaviour
 {
-    Vector2 finalPos, velo;
+    Vector2 finalPos, moveDirection;
     GameObject target, camera;
     LevelDesign levelDesign;
     Rigidbody2D rb;
@@ -26,7 +26,12 @@ public class Enemy2Script : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
     void FixedUpdate()
     {
         if (isGrounded && Time.timeScale != 0)

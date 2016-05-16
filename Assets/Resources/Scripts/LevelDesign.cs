@@ -6,30 +6,49 @@ using System.Collections;
 public class LevelDesign : MonoBehaviour {
     public float coolDown, coolDown2;
     public Text scoreText, loseWord;
-    public Animator anim;
+    public Animator anim, scoreAnim;
+    public bool type1, type2, type3;
     
     float lastSpawn, lastSpawn2;
     float score = 0;
     GameObject enemyPrefab, enemy2Prefab;
+    MyPlayerPref myPlayerPref;
 
 	// Use this for initialization
 	void Start () {
         lastSpawn = Time.realtimeSinceStartup;
         enemyPrefab = (GameObject)Resources.Load("Prefab/Enemy");
         enemy2Prefab = (GameObject)Resources.Load("Prefab/Enemy2");
+        myPlayerPref = GetComponent<MyPlayerPref>();
         Physics2D.IgnoreLayerCollision(8, 8);
         setScoreText(0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if ((Time.realtimeSinceStartup * Time.timeScale) - lastSpawn > coolDown)
+        EnemyOne();
+        EnemyTwo();
+
+        //testing gameover
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            GameOver();
+        }
+    }
+
+    void EnemyOne()
+    {
+        if ((Time.realtimeSinceStartup * Time.timeScale) - lastSpawn > coolDown && type1)
         {
             lastSpawn = Time.realtimeSinceStartup;
             if (coolDown > 0.8f) coolDown -= 0.002f;
             Spawn();
         }
-        if ((Time.realtimeSinceStartup * Time.timeScale) - lastSpawn2 > coolDown2)
+    }
+
+    void EnemyTwo()
+    {
+        if ((Time.realtimeSinceStartup * Time.timeScale) - lastSpawn2 > coolDown2 && type2)
         {
             lastSpawn2 = Time.realtimeSinceStartup;
             if (coolDown2 > 3f) coolDown -= 0.002f;
@@ -72,6 +91,27 @@ public class LevelDesign : MonoBehaviour {
 
     public void GameOver()
     {
+        float tempScore = myPlayerPref.GetHighScore(SceneManager.GetActiveScene().name);
+        if(score > tempScore)
+        {
+            scoreAnim.SetBool("NewHighScore", true);
+            myPlayerPref.SetHighScore(score, SceneManager.GetActiveScene().name);
+            scoreText.color = Color.yellow;
+            scoreText.text = "NEW HIGHSCORE!\n" + score.ToString();
+        }
+        Time.timeScale = 0;
+        anim.SetBool("isOver", true);
+    }
+
+    public void TestGameOver()
+    {
+        float tempScore = myPlayerPref.GetHighScore(SceneManager.GetActiveScene().name);
+        float testScore = 99;
+        
+            scoreAnim.SetBool("NewHighScore", true);
+            //myPlayerPref.SetHighScore(score);
+            scoreText.color = Color.yellow;
+            scoreText.text = "NEW HIGHSCORE!\n" + testScore.ToString();
         Time.timeScale = 0;
         anim.SetBool("isOver", true);
     }
@@ -80,5 +120,10 @@ public class LevelDesign : MonoBehaviour {
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Level 1");
+    }
+
+    public float getScore()
+    {
+        return score;
     }
 }

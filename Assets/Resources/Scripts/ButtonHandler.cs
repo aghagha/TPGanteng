@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class ButtonHandler : MonoBehaviour {
 
@@ -15,7 +16,12 @@ public class ButtonHandler : MonoBehaviour {
 	}
 
     public void Play() {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Level Selector");
+    }
+
+    public void PlayLevel()
+    {
+        SceneManager.LoadScene("Level " + EventSystem.current.currentSelectedGameObject.name);
     }
 
 }
