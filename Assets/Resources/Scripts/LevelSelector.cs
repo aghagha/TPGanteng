@@ -16,7 +16,6 @@ public class LevelSelector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
     public void SetSelected()
@@ -32,7 +31,7 @@ public class LevelSelector : MonoBehaviour {
 
     public void ShowHighScore()
     {
-        highScoreText.text = "High Score : " + (myPlayerPref.GetHighScore("Level " + selected + "HighScore")).ToString();
+        highScoreText.text = "High Score : " + (myPlayerPref.GetHighScore("Level " + selected)).ToString();
     }
 
 }

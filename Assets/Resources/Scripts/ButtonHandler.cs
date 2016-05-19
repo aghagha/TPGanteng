@@ -24,4 +24,9 @@ public class ButtonHandler : MonoBehaviour {
         SceneManager.LoadScene("Level " + EventSystem.current.currentSelectedGameObject.name);
     }
 
+    public void ToLevelSelector()
+    {
+        SceneManager.LoadScene("Level Selector");
+    }
+
 }

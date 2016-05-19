@@ -6,11 +6,13 @@ public class Enemy2Script : MonoBehaviour
     Vector2 finalPos, moveDirection;
     GameObject target, camera;
     LevelDesign levelDesign;
+    SFXManager sfxManager;
     Rigidbody2D rb;
+    public Sprite burgerHitKiri, burgerHitKanan;
 
-    bool isGrounded = false;
+    bool isGrounded = false, isAlive = true;
     float speed = 1f;
-    float knockback = 30f;
+    float knockback = 100f;
     float hp = 2f;
 
     public float maxVelocity, currVelo;
@@ -19,7 +21,7 @@ public class Enemy2Script : MonoBehaviour
     void Start()
     {
         target = GameObject.Find("Player");
-
+        sfxManager = GameObject.Find("MusicBox").GetComponent<SFXManager>();
         camera = GameObject.Find("Main Camera");
         levelDesign = camera.GetComponent<LevelDesign>();
 
@@ -34,7 +36,7 @@ public class Enemy2Script : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isGrounded && Time.timeScale != 0)
+        if (isGrounded && Time.timeScale != 0 && isAlive)
         {
             rb.gravityScale = 0;
             rb.AddForce((target.transform.position - transform.position).normalized * speed * Time.deltaTime, ForceMode2D.Impulse);
@@ -46,14 +48,23 @@ public class Enemy2Script : MonoBehaviour
     {
         if (col.gameObject.tag == "bullets")
         {
+            sfxManager.PlaySFX();
             hp -= 1;
             if (hp == 0)
             {
-                Destroy(gameObject);
+                isAlive = false;
+                rb.AddForce((transform.position - col.transform.position).normalized * 5000 * Time.deltaTime, ForceMode2D.Impulse);
                 levelDesign.AddScore(1);
             }
             else
             {
+                if(transform.position.x < col.transform.position.x)
+                {
+                    GetComponent<SpriteRenderer>().sprite = burgerHitKiri;
+                } else
+                {
+                    GetComponent<SpriteRenderer>().sprite = burgerHitKanan;
+                }
                 rb.AddForce((transform.position - target.transform.position).normalized * knockback * Time.deltaTime, ForceMode2D.Impulse);
             }
             Destroy(col.gameObject);

@@ -15,13 +15,12 @@ public class MyPlayerPref : MonoBehaviour {
 
     public float GetHighScore(string level)
     {
-        return PlayerPrefs.GetFloat(level+"HighScore", 0);
+        return PlayerPrefs.GetFloat("HighScore"+level, 0);
     }
 
     public void SetHighScore(float score, string level)
     {
-        PlayerPrefs.SetFloat(level+"HighScore", score);
-        
+        PlayerPrefs.SetFloat("HighScore"+level, score); 
     }
 
 

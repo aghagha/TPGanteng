@@ -8,6 +8,8 @@ public class LevelDesign : MonoBehaviour {
     public Text scoreText, loseWord;
     public Animator anim, scoreAnim;
     public bool type1, type2, type3;
+    GameObject buttonParent;
+    public Button backButton;
     
     float lastSpawn, lastSpawn2;
     float score = 0;
@@ -20,6 +22,7 @@ public class LevelDesign : MonoBehaviour {
         enemyPrefab = (GameObject)Resources.Load("Prefab/Enemy");
         enemy2Prefab = (GameObject)Resources.Load("Prefab/Enemy2");
         myPlayerPref = GetComponent<MyPlayerPref>();
+        buttonParent = GameObject.Find("Canvas/Button");
         Physics2D.IgnoreLayerCollision(8, 8);
         setScoreText(0);
 	}
@@ -32,7 +35,7 @@ public class LevelDesign : MonoBehaviour {
         //testing gameover
         if (Input.GetKeyDown(KeyCode.G))
         {
-            GameOver();
+            myPlayerPref.SetHighScore(score, SceneManager.GetActiveScene().name);
         }
     }
 
@@ -99,8 +102,10 @@ public class LevelDesign : MonoBehaviour {
             scoreText.color = Color.yellow;
             scoreText.text = "NEW HIGHSCORE!\n" + score.ToString();
         }
+        buttonParent.SetActive(false);
         Time.timeScale = 0;
         anim.SetBool("isOver", true);
+        backButton.transform.localScale = new Vector3(0.6548014f, 0.6548014f, 0.6548014f);
     }
 
     public void TestGameOver()
@@ -119,7 +124,7 @@ public class LevelDesign : MonoBehaviour {
     public void Retry()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public float getScore()

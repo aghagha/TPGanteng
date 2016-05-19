@@ -18,13 +18,17 @@ public class BulletScript : MonoBehaviour {
         if (posSet)
         {
             transform.position = Vector3.MoveTowards(transform.position, finalPos, bulletSpeed * Time.deltaTime);
+            //transform.localRotation = Quaternion.LookRotation(finalPos);
         }
 
         if(transform.position == (Vector3)finalPos)
         {
             Destroy(gameObject);
         }
+    }
 
+    void LateUpdate()
+    {
         
     }
 
@@ -33,4 +37,5 @@ public class BulletScript : MonoBehaviour {
         finalPos = pos;
         posSet = true;
     }
+    
 }
