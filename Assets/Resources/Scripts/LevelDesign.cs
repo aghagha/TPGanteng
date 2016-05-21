@@ -23,6 +23,7 @@ public class LevelDesign : MonoBehaviour {
         enemy2Prefab = (GameObject)Resources.Load("Prefab/Enemy2");
         myPlayerPref = GetComponent<MyPlayerPref>();
         buttonParent = GameObject.Find("Canvas/Button");
+        Time.timeScale = 1;
         Physics2D.IgnoreLayerCollision(8, 8);
         setScoreText(0);
 	}
@@ -104,8 +105,9 @@ public class LevelDesign : MonoBehaviour {
         }
         buttonParent.SetActive(false);
         Time.timeScale = 0;
-        anim.SetBool("isOver", true);
         backButton.transform.localScale = new Vector3(0.6548014f, 0.6548014f, 0.6548014f);
+        anim.SetBool("isOver", true);
+        
     }
 
     public void TestGameOver()
