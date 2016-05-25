@@ -13,7 +13,7 @@ public class LevelDesign : MonoBehaviour {
     
     float lastSpawn, lastSpawn2;
     float score = 0;
-    GameObject enemyPrefab, enemy2Prefab;
+    GameObject enemyPrefab, enemy2Prefab, enemy3Prefab;
     MyPlayerPref myPlayerPref;
 
 	// Use this for initialization
@@ -21,11 +21,13 @@ public class LevelDesign : MonoBehaviour {
         lastSpawn = Time.realtimeSinceStartup;
         enemyPrefab = (GameObject)Resources.Load("Prefab/Enemy");
         enemy2Prefab = (GameObject)Resources.Load("Prefab/Enemy2");
+        enemy3Prefab = (GameObject)Resources.Load("Prefab/Enemy3");
         myPlayerPref = GetComponent<MyPlayerPref>();
         buttonParent = GameObject.Find("Canvas/Button");
         Time.timeScale = 1;
         Physics2D.IgnoreLayerCollision(8, 8);
         setScoreText(0);
+        EnemyThree();
 	}
 	
 	// Update is called once per frame
@@ -57,6 +59,32 @@ public class LevelDesign : MonoBehaviour {
             lastSpawn2 = Time.realtimeSinceStartup;
             if (coolDown2 > 3f) coolDown -= 0.002f;
             Spawn(enemy2Prefab);
+        }
+    }
+
+    IEnumerator EnemyThree()
+    {
+        yield return new WaitForSeconds(2f);
+        if (type3)
+        {
+            SpawnLeftRight(enemy3Prefab);
+        }
+    }
+
+    void SpawnLeftRight(GameObject theEnemy)
+    {
+        GameObject enemy;
+        Vector2 leftSpawnPoint = new Vector2 (824793f, 4.391381f);
+        Vector2 rightSpawnPoint = new Vector2(9.98f, 4.391381f);
+        int rand = Random.Range(0, 2);
+        switch (rand)
+        {
+            case 1:
+                enemy = (GameObject)Instantiate(theEnemy, leftSpawnPoint, Quaternion.identity);
+                break;
+            case 2:
+                enemy = (GameObject)Instantiate(theEnemy, rightSpawnPoint, Quaternion.identity);
+                break;
         }
     }
 
